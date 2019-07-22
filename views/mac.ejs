@@ -1,3 +1,27 @@
 <div class="mac">
-    <p>title: <%= title %></p>
+    <button class="btn btn-primary" onclick="postMAC()" style="margin-bottom: 10px">+ Add new</button>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">MAC</th>
+            <th scope="col">비고</th>
+            <th scope="col">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i = 0;i < 10;i++) { %>
+            <tr>
+                <th scope="row">00:00:00:00:00:00</th>
+                <td>내 핸드폰</td>
+                <td>x</td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
 </div>
+
+<script>
+    function postMAC() {
+        alert("postMAC called!")
+    }
+</script>

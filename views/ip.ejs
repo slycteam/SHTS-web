@@ -1,3 +1,27 @@
 <div class="ip">
-    <p>title: <%= title %></p>
+    <button class="btn btn-primary" onclick="postIP()" style="margin-bottom: 10px">+ Add new</button>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">IP</th>
+            <th scope="col">비고</th>
+            <th scope="col">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i = 0;i < 10;i++) { %>
+            <tr>
+                <th scope="row">111.222.111.222</th>
+                <td>네이버</td>
+                <td>x</td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
 </div>
+
+<script>
+    function postIP() {
+        alert("postIP called!")
+    }
+</script>
