@@ -13,24 +13,12 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 
-const {sequelize, User} = require('./models');
+const {sequelize} = require('./models');
 const passportConfig = require('./passport');
 
 const app = express();
-sequelize.sync();
-
-User.sync({force: false}).then(() => {
-    return User.create({
-        email: "akagaeng@gmail.com",
-        displayName: "akagaeng",
-        password: "password",
-        provider: "local",
-        snsId: null,
-    })
-        .catch(function (err) {
-            // print the error details
-            console.log(err);
-        });
+sequelize.sync({
+    force: process.env.DB_FORCE_SYNC === "true"
 });
 
 passportConfig(passport);

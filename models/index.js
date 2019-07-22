@@ -11,6 +11,10 @@ const sequelize = new Sequelize({
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
+db.WhitelistIP = require('./whitelist_IP')(sequelize, Sequelize);
+db.WhitelistMAC = require('./whitelist_MAC')(sequelize, Sequelize);
+db.AllowedTraffic = require('./allowed_traffic')(sequelize, Sequelize);
+db.OUI = require('./OUI')(sequelize, Sequelize);
 
 // db.User.hasMany(db.Post);
 // db.Post.belongsTo(db.User);
