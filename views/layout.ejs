@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="akagaeng">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script src="/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/popper.min.js"></script>
+
+    <title>SLYC</title>
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <% include partials/header.ejs %>
+    <% include partials/nav.ejs %>
+    <div class="content">
+        <%- body %>
+    </div>
+    <% include partials/footer.ejs %>
+</div>
+</body>
+</html>
