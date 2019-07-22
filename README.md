@@ -1,10 +1,19 @@
-# hackathon-fullstack
-express, sqlite, passport
+# Smart HTS web
+- express
+- sqlite
+- passport
 
 ## Getting started
 
+### Configuration
+- `.env` file
+
+### Install
 ```
 npm install
+```
+
+### Start
+```
 npm start
-curl localhost:8001
 ```

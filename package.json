@@ -1,6 +1,6 @@
 {
-  "name": "hackathon-fullstack",
-  "version": "0.0.0",
+  "name": "smart-hts-web",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node app.js"
