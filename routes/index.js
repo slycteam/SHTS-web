@@ -23,7 +23,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     res.render('home', {
         title: "Home",
-        user: req.user || null,
+        user: req.user,
         loginError: req.flash('loginError'),
     });
 });
