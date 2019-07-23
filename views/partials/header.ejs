@@ -8,8 +8,8 @@
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
             <div class="profile-wrap align-content-center">
-                <% if (user && user.id) { %>
-                    <input id="my-id" type="hidden" value="<%= user.id %>">
+                <% if (user && user.email) { %>
+                    <input id="my-id" type="hidden" value="<%= user.email %>">
                     <span> <%= user.displayName %> 님 안녕하세요.
                         <a href="/auth/logout" class="btn btn-sm btn-outline-secondary" class="btn"
                            style="margin-left: 10px">Log out</a>
