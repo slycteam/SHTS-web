@@ -1,32 +1,33 @@
-<!--<div class="timeline">-->
-<!--    <form id="join-form" action="/auth/join" method="post">-->
-<!--        <div class="input-group">-->
-<!--            <label for="join-email">이메일</label>-->
-<!--            <input id="join-email" type="email" name="email"/>-->
-<!--        </div>-->
-<!--        <div class="input-group">-->
-<!--            <label for="join-displayName">닉네임</label>-->
-<!--            <input id="join-displayName" type="text" name="displayName"/>-->
-<!--        </div>-->
-<!--        <div class="input-group">-->
-<!--            <label for="join-password">비밀번호</label>-->
-<!--            <input id="join-password" type="password" name="password"/>-->
-<!--        </div>-->
-<!--        <button class="btn" id="join-btn" type="submit">회원가입</button>-->
-<!--    </form>-->
-<!--</div>-->
+<!DOCTYPE html>
+<html>
+<%- include('partials/head') -%>
 
-<form class="form-signin" id="join-form" action="/auth/join" method="post">
-    <!--    <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-    <h1 class="h3 mb-3 font-weight-normal">Join</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="join-email" name="email" class="form-control" placeholder="Email address" required
-           autofocus>
-    <label for="displayName" class="sr-only">Display name</label>
-    <input type="text" id="join-displayName" name="displayName" class="form-control" placeholder="Display name" required
-           autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="join-password" name="password" class="form-control" placeholder="Password" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Join</button>
-</form>
+<body>
+<div class="container">
+    <%- include('partials/header') -%>
+    <%- include('partials/nav') -%>
+    <div class="content">
+        <div class="join">
+            <form class="form-signin" id="join-form" action="/auth/join" method="post">
+                <!--    <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+                <h1 class="h3 mb-3 font-weight-normal">Join</h1>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" id="join-email" name="email" class="form-control" placeholder="Email address" required
+                       autofocus>
+                <label for="displayName" class="sr-only">Display name</label>
+                <input type="text" id="join-displayName" name="displayName" class="form-control" placeholder="Display name"
+                       required
+                       autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="join-password" name="password" class="form-control" placeholder="Password" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Join</button>
+            </form>
+        </div>
+    </div>
+    <%- include('partials/footer') -%>
+</div>
+
+<script></script>
+</body>
+</html>
 

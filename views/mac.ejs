@@ -1,23 +1,35 @@
-<div class="mac">
-    <button class="btn btn-primary" onclick="postMAC()" style="margin-bottom: 10px">+ Add new</button>
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">MAC</th>
-            <th scope="col">비고</th>
-            <th scope="col">삭제</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% for(let i = 0;i < 10;i++) { %>
-            <tr>
-                <th scope="row">00:00:00:00:00:00</th>
-                <td>내 핸드폰</td>
-                <td>x</td>
-            </tr>
-        <% } %>
-        </tbody>
-    </table>
+<!DOCTYPE html>
+<html>
+<%- include('partials/head') -%>
+
+<body>
+<div class="container">
+    <%- include('partials/header') -%>
+    <%- include('partials/nav') -%>
+    <div class="content">
+        <div class="mac">
+            <button class="btn btn-primary" onclick="postMAC()" style="margin-bottom: 10px">+ Add new</button>
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">MAC</th>
+                    <th scope="col">비고</th>
+                    <th scope="col">삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(let i = 0;i < 10;i++) { %>
+                    <tr>
+                        <th scope="row">00:00:00:00:00:00</th>
+                        <td>내 핸드폰</td>
+                        <td>x</td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <%- include('partials/footer') -%>
 </div>
 
 <script>
@@ -25,3 +37,5 @@
         alert("postMAC called!")
     }
 </script>
+</body>
+</html>

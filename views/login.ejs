@@ -1,18 +1,36 @@
-<form class="form-signin" action="/auth/login" method="post">
-<!--    <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
+<!DOCTYPE html>
+<html>
+<%- include('partials/head') -%>
+
+<body>
+<div class="container">
+    <%- include('partials/header') -%>
+    <%- include('partials/nav') -%>
+    <div class="content">
+        <div class="login">
+            <form class="form-signin" action="/auth/login" method="post">
+                <!--    <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+                <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+                <a class="btn btn-lg btn-dark btn-block" href="/join">Join</a>
+                <a class="btn btn-lg" style="padding:0;margin-top: 8px" href="/auth/kakao">
+                    <img src="/img/kakao_btn.png" width="300px"/>
+                </a>
+            </form>
+        </div>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
-    <a class="btn btn-lg btn-dark btn-block" href="/join">Join</a>
-    <a class="btn btn-lg" style="padding:0;margin-top: 8px" href="/auth/kakao">
-        <img src="/img/kakao_btn.png" width="300px"/>
-    </a>
-</form>
+    <%- include('partials/footer') -%>
+</div>
+
+<script></script>
+</body>
+</html>

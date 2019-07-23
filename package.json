@@ -15,7 +15,6 @@
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
     "express": "^4.16.4",
-    "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.16.2",
     "helmet": "^3.19.0",
     "morgan": "^1.9.1",
