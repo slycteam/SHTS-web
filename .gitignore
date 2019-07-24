@@ -1,3 +1,5 @@
+db/sqlite/db.sqlite
+
 .DS_Store
 .idea
 package-lock.json
