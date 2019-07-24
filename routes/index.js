@@ -52,6 +52,22 @@ router.get('/macip', async (req, res, next) => {
     });
 });
 
+router.get('/proc', async (req, res, next) => {
+    res.render('proc', {
+        title: "감시 프로세스",
+        user: req.user,
+        loginError: req.flash('loginError'),
+    });
+});
+
+router.get('/alert', async (req, res, next) => {
+    res.render('alert', {
+        title: "알림 채널 관리",
+        user: req.user,
+        loginError: req.flash('loginError'),
+    });
+});
+
 router.get('/slyc', async (req, res, next) => {
     res.render('slyc', {
         title: "slyc",

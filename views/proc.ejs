@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<%- include('partials/head') -%>
+
+<body>
+<div class="container">
+    <%- include('partials/header') -%>
+    <%- include('partials/nav') -%>
+    <div class="content">
+        <div class="proc">
+            <label>감시 Proc:
+                <input name="abc" type="text" value="test" />
+            </label>
+            <button class="btn btn-primary" onclick="startButton()" style="margin-bottom: 10px">Start/Stop</button>
+        </div>
+    </div>
+    <%- include('partials/footer') -%>
+</div>
+
+<script>
+    function startButton() {
+        alert("startButton clicked!")
+    }
+</script>
+</body>
+</html>

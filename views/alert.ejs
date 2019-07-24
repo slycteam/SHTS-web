@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<%- include('partials/head') -%>
+
+<body>
+<div class="container">
+    <%- include('partials/header') -%>
+    <%- include('partials/nav') -%>
+    <div class="content">
+        <div class="alert">
+            <button class="btn btn-primary" onclick="addButton()" style="margin-bottom: 10px">+ Add new</button>
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">매체</th>
+                    <th scope="col">채널</th>
+                    <th scope="col">삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(let i = 0;i < 10;i++) { %>
+                    <% switch(i){
+                    case 0: %>
+                    <tr>
+                        <td>슬랙(메신져)</td>
+                        <td>#s-hts-alerts</td>
+                        <td>x</td>
+                    </tr>
+                    <% break;
+                    case 1: %>
+                    <tr>
+                        <td>카카오톡(메신져)</td>
+                        <td>플러스친구(s-hts-alerts)</td>
+                        <td>x</td>
+                    </tr>
+                    <% break;
+                    default: %>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>x</td>
+                    </tr>
+                    <% break;
+                    } %>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <%- include('partials/footer') -%>
+</div>
+
+<script>
+    function addButton() {
+        alert("addButton clicked!")
+    }
+</script>
+</body>
+</html>
