@@ -7,7 +7,7 @@ router.get('/', function (req, res, next) {
     res.send('/api activated.');
 });
 
-router.get('/slack/send', async (req, res, next) => {
+router.post('/slack/send', async (req, res, next) => {
     const text = req.body.text || "Hello world!";
     console.log("text", text);
     try {
