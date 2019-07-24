@@ -9,6 +9,7 @@ const helmet = require('helmet');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 
@@ -49,6 +50,7 @@ app.use(passport.session());
 app.disable('x-powered-by');
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
