@@ -1,6 +1,6 @@
 const express = require('express');
 const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
-const {User, sequelize} = require('../models');
+const {User, WhitelistMAC, WhitelistIP, AllowedTraffic, OUI, sequelize} = require('../models');
 
 const router = express.Router();
 
@@ -29,11 +29,31 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/mac', async (req, res, next) => {
-    res.render('mac', {
-        title: "mac",
-        user: req.user,
-        loginError: req.flash('loginError'),
-    });
+    try {
+        const whitelistMac = await WhitelistMAC.findAll({});
+        res.render('mac', {
+            title: "mac",
+            user: req.user,
+            data: whitelistMac,
+            loginError: req.flash('loginError'),
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post('/mac', async (req, res, next) => {
+    const {mac, desc} = req.body;
+
+    try {
+        const response = await WhitelistMAC.create({
+            MAC: mac,
+            desc: desc,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    return res.redirect('/mac');
 });
 
 router.get('/ip', async (req, res, next) => {
