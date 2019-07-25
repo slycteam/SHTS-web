@@ -30,15 +30,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% for(let i = 0;i < 10;i++) { %>
+                <% data.forEach((v, i) => { %>
                     <tr>
-                        <td>AA:BB:CC:DD:EE:FF</td>
-                        <td>111.222.111.222</td>
-                        <td>비고</td>
-                        <!--                        <td><a href="#editMacipModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
-                        <td><a href="#deleteMacipModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">remove_circle_outline</i></a></td>
+                        <td class="rowMac"><%= v.MAC %></td>
+                        <td class="rowIp"><%= v.IP %></td>
+                        <td><%= v.descr %></td>
+                        <!--                        <td><a href="#editMacIpModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
+                        <td><a href="#deleteMacipModal" class="delete" data-toggle="modal"><i class="material-icons"
+                                                                                            id="deleteBtn"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="Delete">remove_circle_outline</i></a>
+                        </td>
                     </tr>
-                <% } %>
+                <% }); %>
                 </tbody>
             </table>
             <div class="clearfix">
@@ -60,7 +64,7 @@
     <div id="addMacipModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+                <form action="/macip" method="post">
                     <div class="modal-header">
                         <h4 class="modal-title">Add New Macip</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -68,15 +72,15 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>MAC</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="mac" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>IP</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="ip" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>비고</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="descr" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -126,7 +130,9 @@
     <div id="deleteMacipModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+                <form id="deleteForm">
+                    <input type="hidden" name="mac" id="deleteFormMac" value=""/>
+                    <input type="hidden" name="ip" id="deleteFormIp" value=""/>
                     <div class="modal-header">
                         <h4 class="modal-title">Delete Macip</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -147,6 +153,26 @@
 </div>
 
 <script>
+    $('.delete').on('click', function () {
+        var rowMac = $(this).parents('tr').children('td.rowMac').html();
+        $("#deleteFormMac").val(rowMac);
+
+        var rowIp = $(this).parents('tr').children('td.rowIp').html();
+        $("#deleteFormIp").val(rowIp);
+    });
+    $('#deleteForm').on('submit', function () {
+        // e.preventDefault();
+        var keyMac = $('#deleteFormMac').val();
+        var keyIp = $('#deleteFormIp').val();
+
+        axios.delete("/macip/" + keyMac + "/" + keyIp)
+            .then(function (res) {
+                console.log(res);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
 </script>
 </body>
 </html>
