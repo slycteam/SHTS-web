@@ -30,12 +30,21 @@
                 </thead>
                 <tbody>
                 <% for(let i = 0;i < 10;i++) { %>
-                    <tr>
-                        <td>Slack</td>
-                        <td>#s-hts-alerts</td>
-                        <!--                        <td><a href="#editChannelModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
-                        <td><a href="#deleteChannelModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">remove_circle_outline</i></a></td>
-                    </tr>
+                    <% if (i===0) {%>
+                        <tr>
+                            <td>Slack</td>
+                            <td>#s-hts-alerts</td>
+                            <!--                        <td><a href="#editChannelModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
+                            <td><a href="#deleteChannelModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">remove_circle_outline</i></a></td>
+                        </tr>
+                    <%} else {%>
+                        <tr>
+                            <td>&ensp;</td>
+                            <td>&ensp;</td>
+                            <!--                        <td><a href="#editChannelModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
+                            <td></td>
+                        </tr>
+                    <%}%>
                 <% } %>
                 </tbody>
             </table>
