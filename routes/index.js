@@ -56,13 +56,13 @@ router.post('/mac', async (req, res, next) => {
     return res.redirect('/mac');
 });
 
-router.delete('/mac/:mac', async (req, res, next) => {
-    const {mac} = req.params;
+router.delete('/mac/:addr', async (req, res, next) => {
+    const {addr} = req.params;
 
     try {
         const response = await WhitelistMAC.destroy({
             where: {
-                MAC: mac
+                MAC: addr
             },
         });
         console.log(response);
@@ -73,11 +73,47 @@ router.delete('/mac/:mac', async (req, res, next) => {
 });
 
 router.get('/ip', async (req, res, next) => {
-    res.render('ip', {
-        title: "ip",
-        user: req.user,
-        loginError: req.flash('loginError'),
-    });
+    try {
+        const whitelistIp = await WhitelistIP.findAll({});
+        res.render('ip', {
+            title: "ip",
+            user: req.user,
+            data: whitelistIp,
+            loginError: req.flash('loginError'),
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post('/ip', async (req, res, next) => {
+    const {ip, descr} = req.body;
+
+    try {
+        const response = await WhitelistIP.create({
+            IP: ip,
+            descr: descr,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    return res.redirect('/ip');
+});
+
+router.delete('/ip/:addr', async (req, res, next) => {
+    const {addr} = req.params;
+
+    try {
+        const response = await WhitelistIP.destroy({
+            where: {
+                IP: addr
+            },
+        });
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+    return res.redirect('/ip');
 });
 
 router.get('/macip', async (req, res, next) => {
