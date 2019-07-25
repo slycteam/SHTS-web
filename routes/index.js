@@ -20,7 +20,7 @@ const router = express.Router();
 //         });
 // });
 
-router.get('/', isNotLoggedIn, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     res.render('home', {
         title: "Home",
         user: req.user,
@@ -196,7 +196,7 @@ router.get('/alert', isLoggedIn, async (req, res, next) => {
     });
 });
 
-router.get('/slyc', isNotLoggedIn, async (req, res, next) => {
+router.get('/slyc', async (req, res, next) => {
     res.render('slyc', {
         title: "slyc",
         user: req.user,
