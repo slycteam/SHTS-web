@@ -9,6 +9,7 @@ const helmet = require('helmet');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 
@@ -49,6 +50,7 @@ app.use(passport.session());
 app.disable('x-powered-by');
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
@@ -64,11 +66,15 @@ app.use((err, req, res, next) => {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error', {
+        title: "Error",
+        user: req.user,
+        loginError: req.flash('loginError'),
+    });
 });
 
 app.listen(app.get('port'), () => {
-    console.log("Listening on port", app.get('port'));
+    console.log(`[${process.env.NODE_ENV}] Listening on port ${app.get('port')}`);
 });
 
 module.exports = app;
