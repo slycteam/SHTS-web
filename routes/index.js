@@ -20,7 +20,7 @@ const router = express.Router();
 //         });
 // });
 
-router.get('/', async (req, res, next) => {
+router.get('/', isNotLoggedIn, async (req, res, next) => {
     res.render('home', {
         title: "Home",
         user: req.user,
@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-router.get('/mac', async (req, res, next) => {
+router.get('/mac', isLoggedIn, async (req, res, next) => {
     try {
         const whitelistMac = await WhitelistMAC.findAll({});
         res.render('mac', {
@@ -42,7 +42,7 @@ router.get('/mac', async (req, res, next) => {
     }
 });
 
-router.post('/mac', async (req, res, next) => {
+router.post('/mac', isLoggedIn, async (req, res, next) => {
     const {mac, descr} = req.body;
 
     try {
@@ -56,7 +56,7 @@ router.post('/mac', async (req, res, next) => {
     return res.redirect('/mac');
 });
 
-router.delete('/mac/:addr', async (req, res, next) => {
+router.delete('/mac/:addr', isLoggedIn, async (req, res, next) => {
     const {addr} = req.params;
 
     try {
@@ -72,7 +72,7 @@ router.delete('/mac/:addr', async (req, res, next) => {
     return res.redirect('/mac');
 });
 
-router.get('/ip', async (req, res, next) => {
+router.get('/ip', isLoggedIn, async (req, res, next) => {
     try {
         const whitelistIp = await WhitelistIP.findAll({});
         res.render('ip', {
@@ -86,7 +86,7 @@ router.get('/ip', async (req, res, next) => {
     }
 });
 
-router.post('/ip', async (req, res, next) => {
+router.post('/ip', isLoggedIn, async (req, res, next) => {
     const {ip, descr} = req.body;
 
     try {
@@ -100,7 +100,7 @@ router.post('/ip', async (req, res, next) => {
     return res.redirect('/ip');
 });
 
-router.delete('/ip/:addr', async (req, res, next) => {
+router.delete('/ip/:addr', isLoggedIn, async (req, res, next) => {
     const {addr} = req.params;
 
     try {
@@ -116,7 +116,7 @@ router.delete('/ip/:addr', async (req, res, next) => {
     return res.redirect('/ip');
 });
 
-router.get('/allowed-traffic', async (req, res, next) => {
+router.get('/allowed-traffic', isLoggedIn, async (req, res, next) => {
     try {
         const allowedTraffic = await AllowedTraffic.findAll({});
         res.render('allowedTraffic', {
@@ -130,7 +130,7 @@ router.get('/allowed-traffic', async (req, res, next) => {
     }
 });
 
-router.post('/allowed-traffic', async (req, res, next) => {
+router.post('/allowed-traffic', isLoggedIn, async (req, res, next) => {
     const {mac, ip, descr} = req.body;
 
     try {
@@ -145,7 +145,7 @@ router.post('/allowed-traffic', async (req, res, next) => {
     return res.redirect('/allowed-traffic');
 });
 
-router.delete('/allowed-traffic/:srcMac/:destIp', async (req, res, next) => {
+router.delete('/allowed-traffic/:srcMac/:destIp', isLoggedIn, async (req, res, next) => {
     const {srcMac, destIp} = req.params;
 
     try {
@@ -162,7 +162,7 @@ router.delete('/allowed-traffic/:srcMac/:destIp', async (req, res, next) => {
     return res.redirect('/allowed-traffic');
 });
 
-router.get('/proc', async (req, res, next) => {
+router.get('/proc', isLoggedIn, async (req, res, next) => {
     res.render('proc', {
         title: "감시 프로세스",
         user: req.user,
@@ -170,7 +170,7 @@ router.get('/proc', async (req, res, next) => {
     });
 });
 
-router.post('/proc/:command/:args', async (req, res, next) => {
+router.post('/proc/:command/:args', isLoggedIn, async (req, res, next) => {
     const {command, args} = req.params;
 
     console.log("command:", command);
@@ -188,7 +188,7 @@ router.post('/proc/:command/:args', async (req, res, next) => {
     res.end('done');
 });
 
-router.get('/alert', async (req, res, next) => {
+router.get('/alert', isLoggedIn, async (req, res, next) => {
     res.render('alert', {
         title: "알림 채널 관리",
         user: req.user,
@@ -196,7 +196,7 @@ router.get('/alert', async (req, res, next) => {
     });
 });
 
-router.get('/slyc', async (req, res, next) => {
+router.get('/slyc', isNotLoggedIn, async (req, res, next) => {
     res.render('slyc', {
         title: "slyc",
         user: req.user,
