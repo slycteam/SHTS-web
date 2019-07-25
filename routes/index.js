@@ -56,6 +56,22 @@ router.post('/mac', async (req, res, next) => {
     return res.redirect('/mac');
 });
 
+router.delete('/mac/:mac', async (req, res, next) => {
+    const {mac} = req.params;
+
+    try {
+        const response = await WhitelistMAC.destroy({
+            where: {
+                MAC: mac
+            },
+        });
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+    return res.redirect('/mac');
+});
+
 router.get('/ip', async (req, res, next) => {
     res.render('ip', {
         title: "ip",
