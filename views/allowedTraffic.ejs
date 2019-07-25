@@ -9,12 +9,12 @@
     <%- include('partials/header') -%>
     <%- include('partials/nav') -%>
     <div class="content">
-        <div class="macip table-wrapper">
+        <div class="allowed_traffic table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-12">
                         <h2><%= title %></h2>
-                        <a href="#addMacipModal" class="btn btn-primary" data-toggle="modal"><i
+                        <a href="#addAllowedTrafficModal" class="btn btn-primary" data-toggle="modal"><i
                                     class="material-icons">add_circle_outline</i> <span>Add New</span></a>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
                         <td class="rowMac"><%= v.MAC %></td>
                         <td class="rowIp"><%= v.IP %></td>
                         <td><%= v.descr %></td>
-                        <!--                        <td><a href="#editMacIpModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
-                        <td><a href="#deleteMacipModal" class="delete" data-toggle="modal"><i class="material-icons"
+                        <!--                        <td><a href="#editAllowedTrafficModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>-->
+                        <td><a href="#deleteAllowedTrafficModal" class="delete" data-toggle="modal"><i class="material-icons"
                                                                                             id="deleteBtn"
                                                                                             data-toggle="tooltip"
                                                                                             title="Delete">remove_circle_outline</i></a>
@@ -61,12 +61,12 @@
     </div>
 
     <!-- Add Modal HTML -->
-    <div id="addMacipModal" class="modal fade">
+    <div id="addAllowedTrafficModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="/macip" method="post">
+                <form action="/allowed-traffic" method="post">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add New Macip</h4>
+                        <h4 class="modal-title">Add New Allowed Traffic</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -92,12 +92,12 @@
         </div>
     </div>
     <!-- Edit Modal HTML -->
-    <div id="editMacipModal" class="modal fade">
+    <div id="editAllowedTrafficModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>
                     <div class="modal-header">
-                        <h4 class="modal-title">Edit Macip</h4>
+                        <h4 class="modal-title">Edit Allowed Traffic</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -127,14 +127,14 @@
         </div>
     </div>
     <!-- Delete Modal HTML -->
-    <div id="deleteMacipModal" class="modal fade">
+    <div id="deleteAllowedTrafficModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id="deleteForm">
                     <input type="hidden" name="mac" id="deleteFormMac" value=""/>
                     <input type="hidden" name="ip" id="deleteFormIp" value=""/>
                     <div class="modal-header">
-                        <h4 class="modal-title">Delete Macip</h4>
+                        <h4 class="modal-title">Delete Allowed Traffic</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -165,7 +165,7 @@
         var keyMac = $('#deleteFormMac').val();
         var keyIp = $('#deleteFormIp').val();
 
-        axios.delete("/macip/" + keyMac + "/" + keyIp)
+        axios.delete("/allowed-traffic/" + keyMac + "/" + keyIp)
             .then(function (res) {
                 console.log(res);
             })

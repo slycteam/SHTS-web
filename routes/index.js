@@ -116,11 +116,11 @@ router.delete('/ip/:addr', async (req, res, next) => {
     return res.redirect('/ip');
 });
 
-router.get('/macip', async (req, res, next) => {
+router.get('/allowed-traffic', async (req, res, next) => {
     try {
         const allowedTraffic = await AllowedTraffic.findAll({});
-        res.render('macip', {
-            title: "macip",
+        res.render('allowedTraffic', {
+            title: "Allowed Traffic",
             user: req.user,
             data: allowedTraffic,
             loginError: req.flash('loginError'),
@@ -130,7 +130,7 @@ router.get('/macip', async (req, res, next) => {
     }
 });
 
-router.post('/macip', async (req, res, next) => {
+router.post('/allowed-traffic', async (req, res, next) => {
     const {mac, ip, descr} = req.body;
 
     try {
@@ -142,10 +142,10 @@ router.post('/macip', async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-    return res.redirect('/macip');
+    return res.redirect('/allowed-traffic');
 });
 
-router.delete('/macip/:srcMac/:destIp', async (req, res, next) => {
+router.delete('/allowed-traffic/:srcMac/:destIp', async (req, res, next) => {
     const {srcMac, destIp} = req.params;
 
     try {
@@ -159,7 +159,7 @@ router.delete('/macip/:srcMac/:destIp', async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-    return res.redirect('/macip');
+    return res.redirect('/allowed-traffic');
 });
 
 router.get('/proc', async (req, res, next) => {
