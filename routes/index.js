@@ -1,7 +1,7 @@
 const express = require('express');
 const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 const {User, WhitelistMAC, WhitelistIP, AllowedTraffic, OUI, sequelize} = require('../models');
-
+const {spawn} = require('child_process');
 const router = express.Router();
 
 /* GET home page. */
@@ -94,6 +94,24 @@ router.get('/proc', async (req, res, next) => {
         user: req.user,
         loginError: req.flash('loginError'),
     });
+});
+
+router.post('/proc/:command/:args', async (req, res, next) => {
+    const {command, args} = req.params;
+
+    console.log("command:", command);
+    console.log("args:", args);
+    //
+    // const subprocess = spawn(command, [args]);
+    // console.log(`Spawned child pid: ${subprocess.pid}`);
+
+    // res.render('proc', {
+    //     title: "감시 프로세스",
+    //     user: req.user,
+    //     loginError: req.flash('loginError'),
+    // });
+    // return res.redirect('/proc');
+    res.end('done');
 });
 
 router.get('/alert', async (req, res, next) => {
