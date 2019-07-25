@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => (
             type: DataTypes.STRING(20),
             primaryKey: true
         },
-        desc: {
+        descr: {
             type: DataTypes.STRING(50),
             allowNull: true,
         },

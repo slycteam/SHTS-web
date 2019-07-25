@@ -43,12 +43,12 @@ router.get('/mac', async (req, res, next) => {
 });
 
 router.post('/mac', async (req, res, next) => {
-    const {mac, desc} = req.body;
+    const {mac, descr} = req.body;
 
     try {
         const response = await WhitelistMAC.create({
             MAC: mac,
-            desc: desc,
+            descr: descr,
         });
     } catch (error) {
         console.log(error);
