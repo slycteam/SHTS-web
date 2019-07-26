@@ -2,6 +2,7 @@ from datetime import datetime
 import subprocess as sub
 import re
 import sqlite3
+import requests
 
 # TODO pip install ipwhois
 from ipwhois import IPWhois
@@ -89,9 +90,19 @@ def need_alert(srcMAC, dstIP):
 def notification(srcMAC, dstIP):
     alerted_List[srcMAC+' '+dstIP] = datetime.now().strftime(DATETIME_FORMAT)
     # TODO  notification function implement
-    get_manuf(srcMAC)
-    get_whois(dstIP)
-    print('Alert!',srcMAC, dstIP)
+    #get_manuf(srcMAC)
+    #get_whois(dstIP)
+    dstInfo = get_whois(dstIP)
+    msg = 'Alert!\n'\
+            + '목적지정보:' + dstIP\
+            + '\n이름:' + dstInfo['name']\
+            + '\n국가:' + dstInfo['country']\
+            + '\n주소:' + dstInfo['address']\
+            + '\n\n등록하기:http://localhost:8001/api/reg?ip=127.0.0.1\n'
+
+    #print(msg)
+    r = requests.post("http://localhost:8001/api/line/send_notify",data={'text': msg})
+    
 
 
 # excute tcpdump and console read
@@ -111,8 +122,8 @@ p = sub.Popen(
         , 'and ether host not b8:27:eb:5b:52:70' #pi eth0
         , 'and ether host not b8:27:eb:0e:07:25' #pi wlan0
         , '-letnq'
-        , '-c 10000' #for test
-        , '-i wlan0'
+        #, '-c 10000' #for test
+        #, '-i wlan0'
     ]
     , stdout=sub.PIPE
 )
