@@ -58,10 +58,8 @@
     function startButton() {
         var procStatus = "<%= procStatus %>";
         var pid = "<%= pid %>";
-        var command = 'python';
+        var command = 'python3';
         var procName = $('#procName').val();
-        console.log("command:", command);
-        console.log("procName:", procName);
 
         if (procStatus === 'Running') {
             return axios.delete('/proc')
