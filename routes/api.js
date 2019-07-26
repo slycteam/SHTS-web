@@ -20,4 +20,25 @@ router.post('/slack/send', async (req, res, next) => {
     res.send('Slack message sent to #s-hts-alerts.\n');
 });
 
+router.post('/line/send_notify', async (req, res, next) => {
+    const token = 'jqbeEbXRn1CahprTGElYVroQTQ2EJkx864pOgtYMHPd';
+    const msg = req.body.text || "Line msg test";
+    console.log("text", msg);
+    try {
+        axios({
+            method: 'post',
+            url: 'https://notify-api.line.me/api/notify',
+            headers: { 
+                'Content-Type' : "application/x-www-form-urlencoded",
+                'Cache-Control' : "no-cache",
+                'Authorization' : "Bearer " + token 
+            },
+            data: 'message=' + msg
+          });
+    } catch (error) {
+        console.log(error);
+    }
+    res.send('Slack message sent to line notify.\n');
+});
+
 module.exports = router;
