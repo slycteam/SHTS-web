@@ -98,11 +98,10 @@ def notification(srcMAC, dstIP):
 ingnoreMACs = 'and ether src not ('+' and '.join(whitelist_MAC)+')' if (whitelist_MAC) else ''
 ingnoreIPs = 'and dst host not ('+' and '.join(whitelist_IP)+')' if (whitelist_IP) else ''
 p = sub.Popen(
-    ['sudo'
-        , 'tcpdump'
+    [ 'tcpdump'
         , '-letnq'
         , 'ip' #IPv4 only
-        , 'and not broadcast' #exclude broadcast traffic
+        #, 'and not broadcast' #exclude broadcast traffic
         , 'and not multicast' #exclude multicast traffic
         , 'and dst net not 10.0.0.0/8'  #exclude local network traffic
         , 'and dst net not 172.16.0.0/12'  #exclude local network traffic
@@ -110,8 +109,10 @@ p = sub.Popen(
         , 'and dst net not 127.0.0.0/8'  #exclude local network traffic
         , ingnoreMACs
         , ingnoreIPs
-        , '-c 100' #for test
-        , 'and ether src 88:e9:fe:63:be:00' #for test
+        , '-c 10000' #for test
+        #, '-i eth0'
+        , 'and ether host not b8:27:eb:5b:52:70' #pi eth0
+        , 'and ether host not b8:27:eb:0e:07:25' #pi wlan0
     ]
     , stdout=sub.PIPE
 )
