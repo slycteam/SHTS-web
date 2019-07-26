@@ -164,7 +164,6 @@ router.delete('/allowed-traffic/:srcMac/:destIp', isLoggedIn, async (req, res, n
 });
 
 router.get('/proc', isLoggedIn, async (req, res, next) => {
-router.get('/proc', async (req, res, next) => {
     let {subprocess} = req.session;
     let pid = null;
     if (subprocess) {
