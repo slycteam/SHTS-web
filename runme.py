@@ -41,7 +41,7 @@ with conn:
             confirmed_List[str(row[0])].add(str(row[1]))
         else:
             confirmed_List[str(row[0])] = set([str(row[1])])
-        
+
 # print(whitelist_MAC)
 # print(whitelist_IP)
 # print(confirmed_List)
@@ -111,7 +111,7 @@ p = sub.Popen(
         , ingnoreMACs
         , ingnoreIPs
         , '-c 100' #for test
-        , 'and ether src 88:e9:fe:63:be:00' #for test
+        #, 'and ether src 88:e9:fe:63:be:00' #for test
     ]
     , stdout=sub.PIPE
 )
@@ -120,5 +120,5 @@ for row in iter(p.stdout.readline, b''):
     r = row.rstrip().decode('utf-8')
     srcMAC = re.search(re_srcMAC, r).group(0)
     dstIP = re.search(re_dstIP, r).group(0)
-    if need_alert(srcMAC,dstIP) : 
+    if need_alert(srcMAC,dstIP) :
         notification(srcMAC,dstIP)
