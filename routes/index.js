@@ -3,6 +3,7 @@ const {isLoggedIn, isNotLoggedIn} = require('./middlewares');
 const {User, WhitelistMAC, WhitelistIP, AllowedTraffic, OUI, sequelize} = require('../models');
 const {spawn} = require('child_process');
 const router = express.Router();
+const kill = require('tree-kill');
 
 /* GET home page. */
 // router.get('/', function (req, res, next) {
@@ -163,9 +164,17 @@ router.delete('/allowed-traffic/:srcMac/:destIp', isLoggedIn, async (req, res, n
 });
 
 router.get('/proc', isLoggedIn, async (req, res, next) => {
+router.get('/proc', async (req, res, next) => {
+    let {subprocess} = req.session;
+    let pid = null;
+    if (subprocess) {
+        pid = subprocess.pid;
+    }
     res.render('proc', {
         title: "감시 프로세스",
         user: req.user,
+        procStatus: pid ? 'Running' : 'Stopped',
+        pid: pid,
         loginError: req.flash('loginError'),
     });
 });
@@ -173,19 +182,40 @@ router.get('/proc', isLoggedIn, async (req, res, next) => {
 router.post('/proc/:command/:args', isLoggedIn, async (req, res, next) => {
     const {command, args} = req.params;
 
-    console.log("command:", command);
-    console.log("args:", args);
-    //
-    // const subprocess = spawn(command, [args]);
-    // console.log(`Spawned child pid: ${subprocess.pid}`);
+    const subprocess = spawn(command, [args]);
+    console.log(`Spawned child pid: ${subprocess.pid}`);
 
-    // res.render('proc', {
-    //     title: "감시 프로세스",
-    //     user: req.user,
-    //     loginError: req.flash('loginError'),
-    // });
-    // return res.redirect('/proc');
-    res.end('done');
+    req.session.subprocess = subprocess;
+
+    subprocess.stdout.on('data', (data) => {
+        console.log(`subprocess.stdout: ${data}`);
+    });
+
+    subprocess.stderr.on('data', (data) => {
+        console.log(`subprocess.stderr: ${data}`);
+    });
+
+    subprocess.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+        req.session.subprocess = null;
+    });
+    return res.redirect('/proc');
+});
+
+router.delete('/proc', async (req, res, next) => {
+    const {subprocess} = req.session;
+    if (subprocess) {
+        const {pid} = subprocess;
+        kill(pid);
+        req.session.subprocess = null;
+        res.render('proc', {
+            title: "감시 프로세스",
+            user: req.user,
+            procStatus: pid ? 'Running' : 'Stopped',
+            pid: pid,
+            loginError: req.flash('loginError'),
+        });
+    }
 });
 
 router.get('/alert', isLoggedIn, async (req, res, next) => {

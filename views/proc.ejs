@@ -14,8 +14,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h2><%= title %></h2>
-<!--                        <a href="#addMacModal" class="btn btn-primary" data-toggle="modal"><i-->
-<!--                                    class="material-icons">add_circle_outline</i> <span>Add New</span></a>-->
+                        <!--                        <a href="#addMacModal" class="btn btn-primary" data-toggle="modal"><i-->
+                        <!--                                    class="material-icons">add_circle_outline</i> <span>Add New</span></a>-->
                     </div>
                 </div>
             </div>
@@ -28,12 +28,23 @@
                 <tbody>
                 <tr>
                     <td>
-                        <label>Status: <input name="abc" type="text" value="test"/></label>
+                        <label>Proc name: <input id="procName" name="procName" value="runme.py"/></label>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button class="btn btn-primary" onclick="startButton()" style="margin-bottom: 10px">Start/Stop</button>
+                        <label>Status: <%= procStatus %></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>PID: <%= pid ? pid : 'N/A' %></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-primary" onclick="startButton()"
+                                style="margin-bottom: 10px"><%= pid ? 'Stop' : 'Start' %></button>
                     </td>
                 </tr>
                 </tbody>
@@ -45,7 +56,35 @@
 
 <script>
     function startButton() {
-        alert("startButton clicked!")
+        var procStatus = "<%= procStatus %>";
+        var pid = "<%= pid %>";
+        var command = 'python';
+        var procName = $('#procName').val();
+        console.log("command:", command);
+        console.log("procName:", procName);
+
+        if (procStatus === 'Running') {
+            return axios.delete('/proc')
+                .then(function (res) {
+                    console.log(res);
+                    window.location.href = '/proc';
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        } else if (procStatus === 'Stopped') {
+            window.location.href = '/proc';
+        }
+
+        return axios.post(`/proc/${command}/${procName}`)
+            .then(function (res) {
+                console.log(res);
+                window.location.href = '/proc';
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
     }
 </script>
 </body>
