@@ -19,7 +19,7 @@ whitelist_MAC = set() # src MAC to ignore
 whitelist_IP = set() # dst IP to ignore
 confirmed_List = {} # {mac : set(IPs}
 alerted_List = {} # {mac+IP : alertedTime}
-
+alerted_IP = set()
 
 # load whitelist from DB(sqlite)
 conn = sqlite3.connect("db/sqlite/db.sqlite")
@@ -79,6 +79,9 @@ def get_whois(ip):
 
 def need_alert(srcMAC, dstIP):
     # print(datetime.datetime.now(), srcMAC, dstIP)
+    if dstIP in alerted_IP : return False
+    alerted_IP.add(dstIP)
+
     if srcMAC in confirmed_List.keys() :
         if dstIP in confirmed_List[srcMAC] : return False
     mac_ip = srcMAC + ' ' + dstIP
@@ -103,7 +106,7 @@ def notification(srcMAC, dstIP):
     with conn:
         cur = conn.cursor()
         sql = '''INSERT INTO whitelist_IPs VALUES (?,?,datetime('now'),datetime('now'),null);'''
-        cur.execute(sql, ('정남진', 21, '경북 구미시1'))
+        cur.execute(sql, (dstIP,dstInfo['name']))
         conn.commit()
         cur.close()
 
@@ -116,7 +119,7 @@ def notification(srcMAC, dstIP):
 ingnoreMACs = 'and ether src not ('+' and '.join(whitelist_MAC)+')' if (whitelist_MAC) else ''
 ingnoreIPs = 'and dst host not ('+' and '.join(whitelist_IP)+')' if (whitelist_IP) else ''
 p = sub.Popen(
-    [ 'tcpdump'
+    [ 'sudo','tcpdump'
         , 'ip' #IPv4 only
         , 'and not broadcast' #exclude broadcast traffic
         , 'and not multicast' #exclude multicast traffic
