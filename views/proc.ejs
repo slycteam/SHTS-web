@@ -66,24 +66,22 @@
         if (procStatus === 'Running') {
             return axios.delete('/proc')
                 .then(function (res) {
-                    console.log(res);
+                    // console.log(res);
                     document.location.href = '/proc';
                 })
                 .catch(function (err) {
                     console.log(err);
                 });
         } else if (procStatus === 'Stopped') {
-            document.location.href = '/proc';
+            return axios.post(`/proc/${command}/${procName}`)
+                .then(function (res) {
+                    // console.log(res);
+                    document.location.href = '/proc';
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         }
-
-        return axios.post(`/proc/${command}/${procName}`)
-            .then(function (res) {
-                console.log(res);
-                document.location.href = '/proc';
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
     }
 
     function refreshButton() {
