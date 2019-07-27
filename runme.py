@@ -98,11 +98,11 @@ def notification(srcMAC, dstIP):
             + '\n이름:' + dstInfo['name']\
             + '\n국가:' + dstInfo['country']\
             + '\n주소:' + dstInfo['address']\
-            + '\n\n등록하기:http://localhost:8001/api/reg?ip=127.0.0.1\n'
+            + '\n\n등록하기:http://172.16.10.5/api/reg?ip=' + dstIP + '\n'
 
     #print(msg)
-    r = requests.post("http://localhost:8001/api/line/send_notify",data={'text': msg})
-    
+    r = requests.post("http://172.16.10.5/api/channels/send",data={'text': msg})
+
 
 
 # excute tcpdump and console read
