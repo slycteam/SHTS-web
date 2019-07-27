@@ -100,8 +100,15 @@ def notification(srcMAC, dstIP):
             + '\n주소:' + dstInfo['address']\
             + '\n\n등록하기:http://172.16.10.5/api/reg?ip=' + dstIP + '\n'
 
+    with conn:
+        cur = conn.cursor()
+        sql = '''INSERT INTO whitelist_IPs VALUES (?,?,datetime('now'),datetime('now'),null);'''
+        cur.execute(sql, ('정남진', 21, '경북 구미시1'))
+        conn.commit()
+        cur.close()
+
     #print(msg)
-    r = requests.post("http://172.16.10.5/api/channels/send",data={'text': msg})
+    #r = requests.post("http://172.16.10.5/api/channels/send",data={'text': msg})
 
 
 
