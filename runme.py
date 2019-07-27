@@ -103,12 +103,13 @@ def notification(srcMAC, dstIP):
             + '\n주소:' + dstInfo['address']\
             + '\n\n등록하기:http://172.16.10.5/api/reg?ip=' + dstIP + '\n'
 
-    with conn:
-        cur = conn.cursor()
-        sql = '''INSERT INTO whitelist_IPs VALUES (?,?,datetime('now'),datetime('now'),null);'''
-        cur.execute(sql, (dstIP,dstInfo['name']))
-        conn.commit()
-        cur.close()
+    
+    # with conn:
+    #     cur = conn.cursor()
+    #     sql = '''INSERT INTO whitelist_IPs VALUES (?,?,datetime('now'),datetime('now'),null);'''
+    #     cur.execute(sql, (dstIP,dstInfo['name']))
+    #     conn.commit()
+    #     cur.close()
 
     #print(msg)
     #r = requests.post("http://172.16.10.5/api/channels/send",data={'text': msg})
