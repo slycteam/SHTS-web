@@ -33,7 +33,7 @@ router.get('/mac', isLoggedIn, async (req, res, next) => {
     try {
         const whitelistMac = await WhitelistMAC.findAll({});
         res.render('mac', {
-            title: "mac",
+            title: "신뢰하는 MAC (출발지)",
             user: req.user,
             data: whitelistMac,
             loginError: req.flash('loginError'),
@@ -77,7 +77,7 @@ router.get('/ip', isLoggedIn, async (req, res, next) => {
     try {
         const whitelistIp = await WhitelistIP.findAll({});
         res.render('ip', {
-            title: "ip",
+            title: "신뢰하는 IP (도착지)",
             user: req.user,
             data: whitelistIp,
             loginError: req.flash('loginError'),
@@ -121,7 +121,7 @@ router.get('/allowed-traffic', isLoggedIn, async (req, res, next) => {
     try {
         const allowedTraffic = await AllowedTraffic.findAll({});
         res.render('allowedTraffic', {
-            title: "Allowed Traffic",
+            title: "신뢰하는 통신 (MAC-IP)",
             user: req.user,
             data: allowedTraffic,
             loginError: req.flash('loginError'),
