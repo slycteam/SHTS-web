@@ -8,10 +8,9 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/slack/send', async (req, res, next) => {
-    const text = req.body.text || "Hello world!";
-    console.log("text", text);
+    const text = req.body.text || "Hello slack!";
     try {
-        await axios.post('https://hooks.slack.com/services/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', {
+        await axios.post(process.env.SLACK_WEBHOOK_URL, {
             text
         });
     } catch (error) {
@@ -20,20 +19,19 @@ router.post('/slack/send', async (req, res, next) => {
     res.send('Slack message sent to #s-hts-alerts.\n');
 });
 
-router.post('/line/send_notify', async (req, res, next) => {
-    const token = 'jqbeEbXRn1CahprTGElYVroQTQ2EJkx864pOgtYMHPd';
-    const msg = req.body.text || "Line msg test";
-    console.log("text", msg);
+router.post('/line/send', async (req, res, next) => {
+    const text = req.body.text || "Hello line!";
+    const token = process.env.LINE_TOKEN;
     try {
         axios({
             method: 'post',
             url: 'https://notify-api.line.me/api/notify',
-            headers: { 
+            headers: {
                 'Content-Type' : "application/x-www-form-urlencoded",
                 'Cache-Control' : "no-cache",
-                'Authorization' : "Bearer " + token 
+                'Authorization' : "Bearer " + token
             },
-            data: 'message=' + msg
+            data: 'message=' + text
           });
     } catch (error) {
         console.log(error);
