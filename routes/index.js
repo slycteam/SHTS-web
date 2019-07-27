@@ -184,7 +184,11 @@ router.post('/proc/:command/:args', async (req, res, next) => {
     const subprocess = spawn(command, [args]);
     console.log(`Spawned child pid: ${subprocess.pid}`);
 
-    req.session.subprocess = subprocess;
+    if (command !== 'killall') {
+        req.session.subprocess = subprocess;
+    } else {
+        req.session.subprocess = null;
+    }
 
     subprocess.stdout.on('data', (data) => {
         console.log(`subprocess.stdout: ${data}`);
