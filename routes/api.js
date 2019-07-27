@@ -19,6 +19,28 @@ router.post('/slack/send', async (req, res, next) => {
     res.send('Slack message sent to #s-hts-alerts.\n');
 });
 
+router.post('/channels/send', async (req, res, next) => {
+
+    let prot= req.protocol;
+    let host = req.get('host');
+
+    const text = req.body.text || "Hello channels!";
+    try {
+        const res = await axios.all(
+            [
+                axios.post(`${prot}://${host}/api/slack/send`, {
+                    text
+                }),
+                axios.post(`${prot}://${host}/api/line/send`, {
+                    text
+                }),
+            ]);
+    } catch (error) {
+        console.log(error);
+    }
+    res.send('Multi-platform message sent to slack and line messenger.\n');
+});
+
 router.post('/line/send', async (req, res, next) => {
     const text = req.body.text || "Hello line!";
     const token = process.env.LINE_TOKEN;
