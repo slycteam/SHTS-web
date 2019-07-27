@@ -43,7 +43,7 @@ router.get('/mac', isLoggedIn, async (req, res, next) => {
     }
 });
 
-router.post('/mac', isLoggedIn, async (req, res, next) => {
+router.post('/mac', async (req, res, next) => {
     const {mac, descr} = req.body;
 
     try {
@@ -87,7 +87,7 @@ router.get('/ip', isLoggedIn, async (req, res, next) => {
     }
 });
 
-router.post('/ip', isLoggedIn, async (req, res, next) => {
+router.post('/ip', async (req, res, next) => {
     const {ip, descr} = req.body;
 
     try {
@@ -131,7 +131,7 @@ router.get('/allowed-traffic', isLoggedIn, async (req, res, next) => {
     }
 });
 
-router.post('/allowed-traffic', isLoggedIn, async (req, res, next) => {
+router.post('/allowed-traffic', async (req, res, next) => {
     const {mac, ip, descr} = req.body;
 
     try {

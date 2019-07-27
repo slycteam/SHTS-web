@@ -21,8 +21,8 @@ router.post('/slack/send', async (req, res, next) => {
 
 router.post('/channels/send', async (req, res, next) => {
 
-    let prot= req.protocol;
-    let host = req.get('host');
+    const prot = req.protocol;
+    const host = req.get('host');
 
     const text = req.body.text || "Hello channels!";
     try {
@@ -49,16 +49,33 @@ router.post('/line/send', async (req, res, next) => {
             method: 'post',
             url: 'https://notify-api.line.me/api/notify',
             headers: {
-                'Content-Type' : "application/x-www-form-urlencoded",
-                'Cache-Control' : "no-cache",
-                'Authorization' : "Bearer " + token
+                'Content-Type': "application/x-www-form-urlencoded",
+                'Cache-Control': "no-cache",
+                'Authorization': "Bearer " + token
             },
             data: 'message=' + text
-          });
+        });
     } catch (error) {
         console.log(error);
     }
     res.send('Slack message sent to line notify.\n');
 });
 
+router.get('/reg', async (req, res, next) => {
+    const prot = req.protocol;
+    const host = req.get('host');
+
+    const ip = req.query.ip;
+    const descr = "User registered IP.";
+
+    try {
+        await axios.post(`${prot}://${host}/ip`, {
+            ip,
+            descr
+        });
+    } catch (error) {
+        console.log(error);
+    }
+    res.send(`New ip ${ip} registered by user!`);
+});
 module.exports = router;
