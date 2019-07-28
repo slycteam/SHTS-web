@@ -112,7 +112,7 @@ def notification(srcMAC, dstIP):
     #     cur.close()
 
     #print(msg)
-    #r = requests.post("http://172.16.10.5/api/channels/send",data={'text': msg})
+    r = requests.post("http://172.16.10.5/api/channels/send",data={'text': msg})
 
 
 
