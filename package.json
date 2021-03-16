@@ -1,6 +1,6 @@
 {
   "name": "smart-hts-web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js",
@@ -8,22 +8,22 @@
     "prod": "pm2 start app.js"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "bcrypt": "^3.0.6",
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.4",
-    "dotenv": "^8.0.0",
-    "ejs": "^2.6.2",
-    "express": "^4.16.4",
-    "express-session": "^1.16.2",
-    "helmet": "^3.19.0",
-    "morgan": "^1.9.1",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "helmet": "^4.4.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "passport": "^0.4.0",
-    "passport-kakao": "0.0.5",
+    "passport": "^0.4.1",
+    "passport-kakao": "^1.0.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.0.0",
-    "sqlite3": "^4.0.9",
-    "tree-kill": "^1.2.1"
+    "sequelize": "^6.5.1",
+    "sqlite3": "^5.0.2",
+    "tree-kill": "^1.2.2"
   }
 }
